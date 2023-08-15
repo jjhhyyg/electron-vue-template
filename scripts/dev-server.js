@@ -45,7 +45,7 @@ async function startElectron() {
     electronProcessLocker = false;
 
     electronProcess.stdout.on('data', data => {
-        if (data == EOL) {
+        if (data === EOL) {
             return;
         }
 
@@ -102,7 +102,7 @@ async function start() {
     rendererPort = devServer.config.server.port;
 
     copyStaticFiles();
-    startElectron();
+    await startElectron();
 
     const path = Path.join(__dirname, '..', 'src', 'main');
     Chokidar.watch(path, {

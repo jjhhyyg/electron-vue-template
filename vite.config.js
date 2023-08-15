@@ -18,6 +18,22 @@ const config = defineConfig({
         emptyOutDir: true,
     },
     plugins: [vuePlugin()],
+    resolve: {
+        alias: {
+            '@': Path.resolve(__dirname, 'src', 'renderer'),
+        }
+    },
+    css: {
+        preprocessorOptions: {
+            scss: {
+                additionalData: `
+                @import "@/assets/scss/global.scss";
+                @import "@/assets/scss/globalVar.scss";
+                @import "@/assets/scss/animations.scss";
+                `,
+            }
+        }
+    }
 });
 
 module.exports = config;
