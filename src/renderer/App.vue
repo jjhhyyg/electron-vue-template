@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import LoginPage from "./pages/LoginPage.vue";
 
 window.electronAPI.sendMessage('Hello from App.vue!');
 </script>

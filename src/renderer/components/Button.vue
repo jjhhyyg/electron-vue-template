@@ -1,7 +1,7 @@
 <!-- 自定义按钮组件 -->
 
 <template>
-<button class="button" :class="buttonClass" @click="$emit('click')">
+<button class="button" :class="buttonClass">
   <slot></slot>
 </button>
 </template>

@@ -2,15 +2,15 @@
 
 <template>
   <div class="container">
-    <div class="login-form" ref="loginForm">
+    <div class="login-form" :style="loginFormStyle">
       <div class="login-form-title">登录</div>
       <div class="login-form-input">
-        <input type="text" required/>
-        <span ref="usernameSpan">用户名</span>
+        <input type="text" required ref="username"/>
+        <span>用户名</span>
       </div>
       <div class="login-form-input">
-        <input type="password" required/>
-        <span ref="passwordSpan">密码</span>
+        <input type="password" required ref="password"/>
+        <span>密码</span>
       </div>
       <div class="login-form-btn">
         <Button @click="login" type="primary">登录</Button>
@@ -23,46 +23,59 @@
 </template>
 
 <script setup lang="ts">
-import {ref, onMounted} from "vue";
+import {onMounted, reactive, ref} from "vue";
 import {useRouter} from "vue-router";
 import Button from "@/components/Button.vue";
+// 登录按钮
+// 获取用户名和密码
+import axios from "axios";
+import {baseURL} from "@/assets/js/globalVars";
 
-// 获取表单DOM元素
-const loginForm = ref();
-
-// 获取两个span的DOM元素
-const usernameSpan = ref();
-const passwordSpan = ref();
-
-// 获取路由实例
-const router = useRouter();
-
+// 窗口大小控制
+// 设置表单样式
+const loginFormStyle = reactive({});
 // 使登录框位置随窗口大小变化而变化
 const handleResize = () => {
   const width = window.innerWidth;
-  loginForm.value.style.right = width / 10 + 'px';
+  loginFormStyle.leftStyle = ref(width / 10 + 'px');
 }
-
 onMounted(() => {
   // 设置窗口大小
   window.resizeTo(800, 600);
-  // 初始化设置登录框位置
   handleResize();
 });
-
 // 添加窗口变动监听事件
 window.addEventListener('resize', handleResize);
 
-// 登录按钮
-const login = () => {
-
-}
-
-// 说明按钮
+// 说明按钮点击
+// 获取路由实例
+const router = useRouter();
 const checkInstruction = () => {
   router.push('/instruct');
 }
 
+// 登录按钮点击
+const username = ref();
+const password = ref();
+const login = () => {
+  let request = {
+    username: username.value,
+    password: password.value
+  }
+  axios.post(baseURL + "/user/login",
+      JSON.stringify(request),
+      {headers: {'Content-Type': 'application/json'}}
+  ).then(res => {
+    if (res.data.code === 0) {
+      router.push('/home');
+    } else {
+      console.log("登录失败")
+      // 弹窗提示登录失败
+    }
+  }).catch(err => {
+    console.log(err);
+  })
+}
 </script>
 
 <style lang="scss" scoped>
