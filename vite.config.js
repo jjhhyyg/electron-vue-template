@@ -1,7 +1,7 @@
 const Path = require('path');
 const vuePlugin = require('@vitejs/plugin-vue')
 
-const { defineConfig } = require('vite');
+const {defineConfig} = require('vite');
 
 /**
  * https://vitejs.dev/config
@@ -17,7 +17,12 @@ const config = defineConfig({
         outDir: Path.join(__dirname, 'build', 'renderer'),
         emptyOutDir: true,
     },
-    plugins: [vuePlugin()],
+    plugins: [
+        vuePlugin({
+            include: [/\.vue$/, /\.md$/],
+        }),
+
+    ],
     resolve: {
         alias: {
             '@': Path.resolve(__dirname, 'src', 'renderer'),

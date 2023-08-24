@@ -13,8 +13,8 @@
         <span ref="passwordSpan">密码</span>
       </div>
       <div class="login-form-btn">
-        <button @click="login">登录</button>
-        <button @click="checkInstruction">说明</button>
+        <Button @click="login" type="primary">登录</Button>
+        <Button @click="checkInstruction">说明</Button>
       </div>
     </div>
   </div>
@@ -25,6 +25,7 @@
 <script setup lang="ts">
 import {ref, onMounted} from "vue";
 import {useRouter} from "vue-router";
+import Button from "@/components/Button.vue";
 
 // 获取表单DOM元素
 const loginForm = ref();
@@ -52,6 +53,10 @@ onMounted(() => {
 // 添加窗口变动监听事件
 window.addEventListener('resize', handleResize);
 
+// 登录按钮
+
+
+// 说明按钮
 const checkInstruction = () => {
   router.push('/instruct');
 }

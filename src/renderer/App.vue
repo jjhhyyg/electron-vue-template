@@ -6,7 +6,6 @@ window.electronAPI.sendMessage('Hello from App.vue!');
 
 <template>
   <router-view></router-view>
-  <LoginPage></LoginPage>
 </template>
 <style lang="scss">
 body{
