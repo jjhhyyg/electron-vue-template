@@ -5,11 +5,11 @@
     <div class="login-form" :style="loginFormStyle">
       <div class="login-form-title">登录</div>
       <div class="login-form-input">
-        <input type="text" required ref="username"/>
+        <input type="text" required v-model="username"/>
         <span>用户名</span>
       </div>
       <div class="login-form-input">
-        <input type="password" required ref="password"/>
+        <input type="password" required v-model="password"/>
         <span>密码</span>
       </div>
       <div class="login-form-btn">
@@ -59,11 +59,11 @@ const username = ref();
 const password = ref();
 const login = () => {
   let request = {
-    username: username.value,
-    password: password.value
+    username: username.value === null ? "" : username.value,
+    password: password.value === null ? "" : password.value
   }
   axios.post(baseURL + "/user/login",
-      JSON.stringify(request),
+      request,
       {headers: {'Content-Type': 'application/json'}}
   ).then(res => {
     if (res.data.code === 0) {
