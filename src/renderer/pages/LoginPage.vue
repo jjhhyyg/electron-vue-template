@@ -54,7 +54,9 @@ onMounted(() => {
 window.addEventListener('resize', handleResize);
 
 // 登录按钮
+const login = () => {
 
+}
 
 // 说明按钮
 const checkInstruction = () => {
